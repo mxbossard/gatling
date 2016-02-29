@@ -25,8 +25,8 @@ import com.dongxiguo.fastring.Fastring.Implicits._
 
 private[charts] class StatisticsTableComponent(implicit configuration: GatlingConfiguration) extends Component {
 
-  private val MaxRequestNameSize = 32
-  private val NumberOfCharsBeforeDots = 29
+  private val MaxRequestNameSize = 20
+  private val NumberOfCharsBeforeDots = 17
   private val NumberOfCharsAfterDots = 0
 
   val html = {
