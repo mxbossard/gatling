@@ -93,6 +93,7 @@ class AsyncHandlerActor(statsEngine: StatsEngine, httpEngine: HttpEngine)(implic
       else tx.request.requestName
 
         def dump = {
+          tx.request.ahcRequest.getUrl
           val buff = stringBuilder
           buff.append(Eol).append(">>>>>>>>>>>>>>>>>>>>>>>>>>").append(Eol)
           buff.append("Request:").append(Eol).append(s"$fullRequestName: $status ${errorMessage.getOrElse("")}").append(Eol)
