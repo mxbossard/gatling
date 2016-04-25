@@ -16,12 +16,12 @@
 package io.gatling.core.action.builder
 
 import scala.concurrent.duration.Duration
-
 import io.gatling.core.action.{ Action, Pause }
 import io.gatling.core.pause.{ Disabled, PauseType }
 import io.gatling.core.session.Expression
 import io.gatling.core.structure.ScenarioContext
 import io.gatling.core.util.NameGen
+import io.gatling.core.pause.Constant
 
 /**
  * Builder for the 'pause' action.
@@ -39,4 +39,17 @@ class PauseBuilder(duration: Expression[Duration], force: Option[PauseType]) ext
         val generator = pauseType.generator(duration)
         new Pause(generator, ctx.system, ctx.coreComponents.statsEngine, genName("pause"), next)
     }
+}
+
+/**
+ * Alternate 'pause' action builder which build a constant pause not impacted by force.
+ * Useful when a constant pause is needed for technical reason and must not be modified by force. 
+ * 
+ */
+class ConstantNotForcablePauseBuilder(duration: Expression[Duration], force: Option[PauseType]) extends ActionBuilder with NameGen {
+
+  override def build(ctx: ScenarioContext, next: Action): Action = {
+    val generator = Constant.generator(duration)
+    new Pause(generator, ctx.system, ctx.coreComponents.statsEngine, genName("pause"), next)
+  }
 }
